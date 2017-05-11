@@ -1,0 +1,10 @@
+<ion-header>
+    <ion-navbar color='custom-bg'>
+      <ion-title>Registration</ion-title>
+    </ion-navbar>
+  </ion-header>
+<ion-tabs #myTabs tabsPlacement='top' color='custom-bg' selectedIndex='0'>
+  <ion-tab [root]="step1root" [rootParams]="user"  enabled='true' tabTitle="STEP1" ></ion-tab>
+  <ion-tab [root]="step2root" [rootParams]="user"  enabled='false' tabTitle="STEP2" ></ion-tab>
+  <ion-tab [root]="step3root" [rootParams]="user"  enabled='false' tabTitle="STEP3" ></ion-tab>
+</ion-tabs>

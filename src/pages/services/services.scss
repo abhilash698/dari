@@ -1,0 +1,10 @@
+page-services {
+	.tab-button-text{
+		font-size: 16px !important;
+		line-height:55px;
+	}
+
+	.tabs-md .tab-button[aria-selected=true] {
+		background-color: #2e3191 !important;
+	}
+}

@@ -1,0 +1,42 @@
+  
+  <ion-header>
+    <ion-navbar >
+      
+    </ion-navbar>
+  </ion-header>
+  <ion-content padding='true'>
+  <form [formGroup]="firstForm">
+  	<ion-list >
+
+	  <ion-item>
+	    <ion-label floating>Username</ion-label>
+	    <ion-input formControlName="username" [(ngModel)]='user.username' type="text"></ion-input>
+	  </ion-item>
+
+	  <ion-item>
+	    <ion-label floating>Email</ion-label>
+	    <ion-input formControlName="email" [(ngModel)]='user.email' type="email"></ion-input>
+	  </ion-item>
+
+	  <ion-item>
+	    <ion-label floating>Mobile</ion-label>
+	    <ion-input formControlName="mobile" [(ngModel)]='user.mobile' type="text"></ion-input>
+	  </ion-item>
+	</ion-list>
+  	<p *ngIf="submitAttempt" style="color: #ea6153; font-size:12px;">Please fill out all details accurately.</p>
+    
+	<ion-list no-lines class='role-btns' >
+		<button ion-button class='custom-button' color="custom-bg" [outline]="user.userType.one" (click)="makeActive(1)" block>I am an Individual</button>
+		<button ion-button class='custom-button' color="orange-cust" [outline]="user.userType.two" (click)="makeActive(2)" block>I am an Astrology Student</button>
+		<button ion-button class='custom-button' color="green-cust" [outline]="user.userType.three" (click)="makeActive(3)" block>I am an Astrologer</button>
+		<p class='terms-text'>By clicking either next or signup button, you agree to abide by the Terms & Conditions and Acceptable User Policy.</p>
+	</ion-list>
+	</form>
+	
+  </ion-content>
+
+  <ion-footer no-shadow>
+	<ion-toolbar position="bottom">
+		<button ion-button color="orange-cust" (click)='NextStep()' block>Continue</button>
+	</ion-toolbar>
+</ion-footer>

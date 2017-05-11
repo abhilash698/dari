@@ -1,0 +1,120 @@
+  <ion-header>
+    <ion-navbar color='custom-bg' >
+       
+    </ion-navbar>
+  </ion-header>
+  <ion-content class="buttons-components-page outer-content">
+   <form [formGroup]="checkoutForm">
+	  <ion-card full>
+		  <ion-list>
+		    <ion-item>
+		  	  <ion-label fixed>Service Name</ion-label>
+		      <ion-input type="text" formControlName="serviceName" name='serviceName'  [(ngModel)]="serviceName"></ion-input>
+		    </ion-item>
+		    <ion-item class='border-bottom'>
+			   <ion-label>Remarks</ion-label>
+			   <ion-textarea rows="2" formControlName="remarks"  name='remarks'  [(ngModel)]="form1.remarks"></ion-textarea>
+			</ion-item>
+		     
+		    
+		  </ion-list>
+	  </ion-card>
+
+	  <ion-card full>
+		  <ion-card-header class='ct-header'>
+		    Birth Details of the person
+		  </ion-card-header>
+
+		  <ion-list>
+		  		<ion-row>
+		  		    <ion-col width-30 class='grid-label'>
+		  				 Name of the Person
+		  			</ion-col>
+		  		</ion-row>
+		  		<ion-row>
+		    		<ion-col width-50>
+				  	    <ion-item class='border-bottom'>
+				      	  	<ion-input formControlName="surname" name='surname'   placeholder="Surname" [(ngModel)]='form1.surname'></ion-input>	    
+				        </ion-item>
+		       		</ion-col>
+		       		<ion-col width-50>
+				  	    <ion-item class='border-bottom'>
+				      	  	<ion-input formControlName="lastname" name='lastname'  placeholder="Lastname"  [(ngModel)]='form1.lastname'></ion-input>	    
+				        </ion-item>
+		       		</ion-col>
+		        </ion-row>
+		         
+		        <ion-item class='border-bottom'>
+				      <ion-label>Gender</ion-label>
+				      <ion-select name='sex' formControlName="sex"   [(ngModel)]="form1.sex" >
+				        <ion-option value="Male">Male</ion-option>
+				        <ion-option value="Female">Female</ion-option>
+				      </ion-select>
+				</ion-item>
+		        <ion-item class='border-bottom'>
+			      <ion-label>Date of birth</ion-label>
+			      <ion-datetime formControlName="dob"  displayFormat="MMM DD YYYY" name='dob'  [(ngModel)]="form1.dob"></ion-datetime>
+			    </ion-item>
+
+			    <ion-row style='margin-top: 5px;'>
+		  		    <ion-col width-30 class='grid-label' style='color:black;'>
+		  				 Birth Time in Between
+		  			</ion-col>
+		  		</ion-row>
+		  		<ion-row>
+		    		<ion-col width-50>
+				  	    <ion-item>
+					      <ion-label>From Time</ion-label>
+					      <ion-datetime formControlName="fromtime"  displayFormat="h:mm A" name='fromtime'  pickerFormat="h mm A" [(ngModel)]="form1.fromtime"></ion-datetime>
+					    </ion-item>
+		       		</ion-col>
+		       		<ion-col width-50>
+				  	    <ion-item>
+					      <ion-label>End Time</ion-label>
+					      <ion-datetime formControlName="endtime"  displayFormat="h:mm A" name='endtime'  pickerFormat="h mm A" [(ngModel)]="form1.endtime"></ion-datetime>
+					    </ion-item>
+		       		</ion-col>
+		        </ion-row>
+
+			    <ion-item>
+				  	<ion-label fixed>Place of Birth </ion-label>
+				    <ion-input formControlName="birthplace"  type="text" name='birthplace'  [(ngModel)]="form1.birthplace"></ion-input>
+				</ion-item>
+			   
+		  </ion-list>
+	  </ion-card>
+
+	  <ion-card full>
+		  <ion-card-header class='ct-header'>
+		    Contact Person Details
+		  </ion-card-header>
+
+		  <ion-list>
+			  <ion-item>
+			    <ion-label fixed>Name</ion-label>
+			    <ion-input formControlName="username"  name="username" [(ngModel)]='form1.username' type="text"></ion-input>
+			  </ion-item>
+
+			  <ion-item>
+			    <ion-label fixed>Email</ion-label>
+			    <ion-input formControlName="email"  name="email" [(ngModel)]='form1.email' type="email"></ion-input>
+			  </ion-item>
+
+			  <ion-item>
+			    <ion-label fixed>Mobile</ion-label>
+			    <ion-input formControlName="mobile"  name="mobile" [(ngModel)]='form1.mobile' type="text"></ion-input>
+			  </ion-item>
+
+		  </ion-list>
+	  </ion-card>
+ 
+    </form>
+    	<ion-item>
+  	  		<p *ngIf="submitAttempt" style="color: #ea6153; font-size:12px;">Please fill out all details accurately.</p>
+  	  	</ion-item>
+
+	    <ion-toolbar position="bottom">
+			<button ion-button   color="orange-cust" (click)='checkOut()' block>Continue</button>
+		</ion-toolbar>
+
+  </ion-content>

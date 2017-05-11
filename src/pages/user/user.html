@@ -1,0 +1,80 @@
+<ion-header>
+    <ion-navbar color='custom-bg'>
+      <ion-title>My Birth Chart</ion-title>
+        <ion-buttons end>
+	      <button ion-button icon-only (click)="presentPopover($event)">
+	        <ion-icon name="more"></ion-icon>
+	      </button>
+	    </ion-buttons>
+    </ion-navbar>
+  </ion-header>
+<ion-content  >
+	<div>
+		<img src="assets/img/home.jpg" class="center img" alt="">
+	</div>
+	 
+	<div class='padding-sm'>
+		<button ion-button class='custom-button' color="blue-cust" block medium>Set You Present Location</button>
+	</div>
+
+	<ion-card full>
+		  <ion-card-header class='ct-header'>
+		    Set Place of Birth
+		  </ion-card-header>
+
+		    <ion-grid>
+			  <ion-row>
+			    <ion-col width-50>
+			    	 <ion-item class='border-bottom' width-50>
+					    <ion-label>Sunrise :</ion-label>
+					    <ion-input type="text" ></ion-input>
+					  </ion-item>
+			    </ion-col>
+			    <ion-col width-50>
+			    	 <ion-item class='border-bottom' width-50>
+					    <ion-label>Sunset :</ion-label>
+					    <ion-input type="text" ></ion-input>
+					  </ion-item>
+			    </ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col width-50>
+			    	 <ion-item class='border-bottom' width-50>
+					    <ion-label>Moonrise :</ion-label>
+					    <ion-input type="text" ></ion-input>
+					  </ion-item>
+			    </ion-col>
+			    <ion-col width-50>
+			    	 <ion-item class='border-bottom' width-50>
+					    <ion-label>Moonset :</ion-label>
+					    <ion-input type="text" ></ion-input>
+					  </ion-item>
+			    </ion-col>
+			  </ion-row>
+			  <ion-row>
+			    <ion-col width-50>
+			    	 <ion-item class='border-bottom' width-50>
+					    <ion-label>Sunsign :</ion-label>
+					    <ion-input type="text" ></ion-input>
+					  </ion-item>
+			    </ion-col>
+			    <ion-col width-50>
+			    	 <ion-item class='border-bottom' width-50>
+					    <ion-label>Moonsign :</ion-label>
+					    <ion-input type="text" ></ion-input>
+					  </ion-item>
+			    </ion-col>
+			  </ion-row>
+			</ion-grid>
+
+		   
+	  </ion-card>
+	  <div class='padding-sm'>
+		<button ion-button class='custom-button' color="color1" block medium>Today</button>
+		<button ion-button class='custom-button' color="color2" block medium>Panchanga</button>
+		<button ion-button class='custom-button' color="color3" block medium>Auspicious Timing</button>
+		<button ion-button class='custom-button' color="color4" block medium>Inauspicious Timing</button>
+		<button ion-button class='custom-button' color="orange-cust" (click)='GotoServices()' block large>Order Now for KP Prediction Reports</button>
+	</div>
+</ion-content>
+ 

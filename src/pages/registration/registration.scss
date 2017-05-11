@@ -1,0 +1,18 @@
+page-registration {
+	.header-md::after, .tabs-md[tabsPlacement="top"] > .tabbar::after, .footer-md::before, .tabs-md[tabsPlacement="bottom"] > .tabbar::before{
+		background-image: none !important;
+	}
+
+	.tabs-md .tab-button[aria-selected=true] {
+	    color: #fff; /*your  text color */
+	    background: #57145a; /* your background color*/
+	}
+
+	.tabs-md .tab-button{
+		min-height: 3em !important;
+	}
+
+	.tab-disabled ion-badge, .tab-disabled ion-icon, .tab-disabled span{
+		opacity: 1 !important;
+	}
+}

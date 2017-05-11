@@ -1,0 +1,246 @@
+  <ion-header>
+    <ion-navbar color='custom-bg' >
+       
+    </ion-navbar>
+  </ion-header>
+  <ion-content class="buttons-components-page outer-content">
+   <form [formGroup]="checkoutForm">
+  	  
+	  <ion-card full>
+		  <ion-list>
+		    <ion-item>
+		  	  <ion-label fixed>Service Name</ion-label>
+		      <ion-input formControlName="serviceName" type="text" name='serviceName'  [(ngModel)]="serviceName"></ion-input>
+		    </ion-item>
+		    <ion-item class='border-bottom'>
+			   <ion-label>Remarks</ion-label>
+			   <ion-textarea formControlName="remarks" rows="2" name='remarks'  [(ngModel)]="form1.remarks"></ion-textarea>
+			</ion-item>
+
+			<ion-row style='margin-top: 5px;'>
+	  		    <ion-col width-30 class='grid-label'>
+	  				Date in Between
+	  			</ion-col>
+	  		</ion-row>
+	  		<ion-row>
+	    		<ion-col width-50>
+			  	    <ion-item class='border-bottom'>
+				      <ion-label>From Date</ion-label>
+				      <ion-datetime formControlName="fromdob" displayFormat="MMM DD YYYY" name='fromdob'  [(ngModel)]="form1.fromdate"></ion-datetime>
+				    </ion-item>
+	       		</ion-col>
+	       		<ion-col width-50>
+			  	    <ion-item class='border-bottom'>
+				      <ion-label>End Date</ion-label>
+				      <ion-datetime formControlName="enddob" displayFormat="MMM DD YYYY" name='enddob'  [(ngModel)]="form1.enddate"></ion-datetime>
+				    </ion-item>
+	       		</ion-col>
+	        </ion-row>
+
+		    <ion-row style='margin-top: 5px;'>
+	  		    <ion-col width-30 class='grid-label'>
+	  				 Time in Between
+	  			</ion-col>
+	  		</ion-row>
+	  		<ion-row>
+	    		<ion-col width-50>
+			  	    <ion-item>
+				      <ion-label>From Time</ion-label>
+				      <ion-datetime formControlName="fromtime" displayFormat="h:mm A" name='fromtime'  pickerFormat="h mm A" [(ngModel)]="form1.fromtime"></ion-datetime>
+				    </ion-item>
+	       		</ion-col>
+	       		<ion-col width-50>
+			  	    <ion-item>
+				      <ion-label>End Time</ion-label>
+				      <ion-datetime formControlName="endtime" displayFormat="h:mm A" name='endtime'  pickerFormat="h mm A" [(ngModel)]="form1.endtime"></ion-datetime>
+				    </ion-item>
+	       		</ion-col>
+	        </ion-row>
+
+	        <ion-item>
+			    <ion-input formControlName="muhurthaplace" type="text" name='muhurthaplace' placeholder='Muhurtha Required Place'  [(ngModel)]="form1.muhurthaplace"></ion-input>
+			</ion-item>
+		  
+		  </ion-list>
+	  </ion-card>
+
+	  <ion-card full>
+		  <ion-card-header class='ct-header'>
+		    Owner Birth Details
+		  </ion-card-header>
+
+		  <ion-list>
+		  		<ion-row>
+		  		    <ion-col width-30 class='grid-label'>
+		  				 Name of the Person
+		  			</ion-col>
+		  		</ion-row>
+		  		<ion-row>
+		    		<ion-col width-50>
+				  	    <ion-item class='border-bottom'>
+				      	  	<ion-input formControlName="msurname" name='msurname'   placeholder="Surname" [(ngModel)]='form1.msurname'></ion-input>	    
+				        </ion-item>
+		       		</ion-col>
+		       		<ion-col width-50>
+				  	    <ion-item class='border-bottom'>
+				      	  	<ion-input formControlName="mlastname" name='mlastname'  placeholder="Lastname"  [(ngModel)]='form1.mlastname'></ion-input>	    
+				        </ion-item>
+		       		</ion-col>
+		        </ion-row>
+		         
+		         
+			    <ion-item class='border-bottom'>
+			      <ion-label>Date of Birth</ion-label>
+			      <ion-datetime formControlName="mdob"  displayFormat="MMM DD YYYY" name='mdob'  [(ngModel)]="form1.mdob"></ion-datetime>
+			    </ion-item>
+
+			    <ion-item>
+			      <ion-label>Time of Birth</ion-label>
+			      <ion-datetime formControlName="mdot" displayFormat="h:mm A" name='mdot'  pickerFormat="h mm A" [(ngModel)]="form1.mtob"></ion-datetime>
+			    </ion-item>
+
+			    <ion-item>
+				  	<ion-label fixed>Place of Birth </ion-label>
+				    <ion-input formControlName="mbirthplace" type="text" (click)="showModal('male')"  name='mbirthplace'  [(ngModel)]="form1.mbirthplace"></ion-input>
+				</ion-item>
+
+				<ion-item class='border-bottom'>
+				    <ion-label fixed>Lat :</ion-label>
+				    <ion-input formControlName="mlat" name="mlat" type="text" value="" [(ngModel)]="form1.mlat"></ion-input>
+				  </ion-item>
+
+				  <ion-item class='border-bottom'>
+				    <ion-label fixed>Long :</ion-label>
+				    <ion-input formControlName="mlong" name="mlong" type="text" [(ngModel)]="form1.mlong"></ion-input>
+				  </ion-item>
+
+				  <ion-item class='border-bottom'>
+				    <ion-label fixed>UTC :</ion-label>
+				    <ion-input formControlName="mutc" name="mutc" type="text" [(ngModel)]="form1.mutc"></ion-input>
+				  </ion-item>
+
+				  <ion-item class='border-bottom'>
+				    <ion-label fixed>TZ :</ion-label>
+				    <ion-input formControlName="mtz" name="mtz" type="text" [(ngModel)]="form1.mtz"></ion-input>
+				  </ion-item>
+
+				  <ion-item class='border-bottom'>
+				    <ion-label fixed>DST :</ion-label>
+				    <ion-input formControlName="mdst" name="mdst" type="text" [(ngModel)]="form1.mdst"></ion-input>
+				  </ion-item>
+
+				  <ion-item>
+				    <ion-label fixed>WT :</ion-label>
+				    <ion-input formControlName="mwt" name="mwt" type="text"[(ngModel)]="form1.mwt"></ion-input>
+				  </ion-item>
+			   
+		  </ion-list>
+	  </ion-card>
+
+	  <ion-card full>
+		  <ion-card-header class='ct-header'>
+		    Owner Spouse Birth Details
+		  </ion-card-header>
+
+		  <ion-list>
+		  		 
+		  		<ion-row>
+		  		    <ion-col width-30 class='grid-label'>
+		  				 Name of the Person
+		  			</ion-col>
+		  		</ion-row>
+		  		<ion-row>
+		    		<ion-col width-50>
+				  	    <ion-item class='border-bottom'>
+				      	  	<ion-input formControlName="fsurname" name='fsurname'   placeholder="Surname" [(ngModel)]='form1.fsurname'></ion-input>	    
+				        </ion-item>
+		       		</ion-col>
+		       		<ion-col width-50>
+				  	    <ion-item class='border-bottom'>
+				      	  	<ion-input formControlName="flastname" name='flastname'  placeholder="Lastname"  [(ngModel)]='form1.flastname'></ion-input>	    
+				        </ion-item>
+		       		</ion-col>
+		        </ion-row>
+		         
+			    <ion-item class='border-bottom'>
+			      <ion-label>Date of Birth</ion-label>
+			      <ion-datetime formControlName="fdob" displayFormat="MMM DD YYYY" name='fdob'  [(ngModel)]="form1.fdob"></ion-datetime>
+			    </ion-item>
+
+			    <ion-item>
+			      <ion-label>Time of Birth</ion-label>
+			      <ion-datetime formControlName="fdot" displayFormat="h:mm A" name='fdot'  pickerFormat="h mm A" [(ngModel)]="form1.ftob"></ion-datetime>
+			    </ion-item>
+
+			    <ion-item>
+				  	<ion-label fixed>Place of Birth </ion-label>
+				    <ion-input formControlName="fbirthplace" type="text" (click)="showModal('female')" name='fbirthplace'  [(ngModel)]="form1.fbirthplace"></ion-input>
+				</ion-item>
+
+				<ion-item class='border-bottom'>
+				    <ion-label fixed>Lat :</ion-label>
+				    <ion-input formControlName="flat" name="flat" type="text" value="" [(ngModel)]="form1.flat"></ion-input>
+				  </ion-item>
+
+				  <ion-item class='border-bottom'>
+				    <ion-label fixed>Long :</ion-label>
+				    <ion-input formControlName="flong" name="flong" type="text" [(ngModel)]="form1.flong"></ion-input>
+				  </ion-item>
+
+				  <ion-item class='border-bottom'>
+				    <ion-label fixed>UTC :</ion-label>
+				    <ion-input formControlName="futc" name="futc" type="text" [(ngModel)]="form1.futc"></ion-input>
+				  </ion-item>
+
+				  <ion-item class='border-bottom'>
+				    <ion-label fixed>TZ :</ion-label>
+				    <ion-input formControlName="ftz" name="ftz" type="text" [(ngModel)]="form1.ftz"></ion-input>
+				  </ion-item>
+
+				  <ion-item class='border-bottom'>
+				    <ion-label fixed>DST :</ion-label>
+				    <ion-input formControlName="fdst" name="fdst" type="text" [(ngModel)]="form1.fdst"></ion-input>
+				  </ion-item>
+
+				  <ion-item>
+				    <ion-label fixed>WT :</ion-label>
+				    <ion-input formControlName="fwt" name="fwt" type="text"[(ngModel)]="form1.fwt"></ion-input>
+				  </ion-item>
+			   
+		  </ion-list>
+	  </ion-card>
+
+	  <ion-card full>
+		  <ion-card-header class='ct-header'>
+		    Contact Person Details
+		  </ion-card-header>
+
+		  <ion-list>
+			  <ion-item>
+			    <ion-label fixed>Name</ion-label>
+			    <ion-input formControlName="username" name="username" [(ngModel)]='form1.username' type="text"></ion-input>
+			  </ion-item>
+
+			  <ion-item>
+			    <ion-label fixed>Email</ion-label>
+			    <ion-input formControlName="email" name="email" [(ngModel)]='form1.email' type="email"></ion-input>
+			  </ion-item>
+
+			  <ion-item>
+			    <ion-label fixed>Mobile</ion-label>
+			    <ion-input formControlName="mobile" name="mobile" [(ngModel)]='form1.mobile' type="text"></ion-input>
+			  </ion-item>
+
+		  </ion-list>
+	  </ion-card>
+ 
+    </form>
+
+    	<ion-item>
+  	  		<p *ngIf="submitAttempt" style="color: #ea6153; font-size:12px;">Please fill out all details accurately.</p>
+  	  	</ion-item>
+	    <ion-toolbar position="bottom">
+			<button ion-button   color="orange-cust" (click)='checkOut()' block>Continue</button>
+		</ion-toolbar>
+
+  </ion-content>

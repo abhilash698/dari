@@ -1,0 +1,275 @@
+  <ion-header>
+    <ion-navbar color='custom-bg' >
+      <ion-title>Checkout</ion-title>
+    </ion-navbar>
+  </ion-header>
+  <ion-content class="buttons-components-page outer-content">
+	  <ion-card>
+	  	 <ion-card-header >
+		    Contact Person Details
+		  </ion-card-header>
+
+		  <ion-list>
+			  <ion-item>UserName: {{userDetails.username}}</ion-item>
+			  <ion-item>Email: {{userDetails.email}}</ion-item>
+			  <ion-item>Mobile: +91 {{userDetails.mobile}}</ion-item>
+		  </ion-list>
+	  </ion-card>
+
+	  <ion-card full>
+		  <ion-card-header >
+		    Service & Remarks
+		  </ion-card-header>
+
+		  <ion-list>
+			  <ion-item>Service Name : {{userDetails.serviceName}}</ion-item>
+			  <ion-item>{{userDetails.remarks}}</ion-item> 
+		  </ion-list>
+	  </ion-card>
+
+	  <ion-card full *ngIf="from != 'of5' && from != 'of4'">
+		  <ion-card-header >
+		    Birth Details
+		  </ion-card-header>
+
+		  <ion-list>
+			  <ion-item>Name : {{userDetails.lastname}}</ion-item>
+			  <ion-item>Surname : {{userDetails.surname}}</ion-item>
+			  <ion-item *ngIf="from == 'of1' && from == 'of3'">
+				  <ion-row>
+			    		<ion-col width-50 class='p-l-0'>
+					  	     Date of birth : {{userDetails.dob}}
+			       		</ion-col>
+			       		<ion-col width-50>
+					  	     Gender : {{userDetails.sex}}
+			       		</ion-col>
+			        </ion-row>
+			  
+			  </ion-item>
+			  <ion-item *ngIf="from == 'of2'">
+			  	Gender : {{userDetails.sex}}
+			  </ion-item>
+			  <ion-item *ngIf="from == 'of3'">
+			  	Birth Time : {{userDetails.dot}}
+			  </ion-item>
+			  <ion-item *ngIf="from == 'of2'">
+			  		<h3>Birth Date Between</h3>
+				    <ion-row>
+			    		<ion-col width-50 class='p-l-0'>
+					  	     From : {{userDetails.fromdob}}
+			       		</ion-col>
+			       		<ion-col width-50>
+					  	     To : {{userDetails.enddob}}
+			       		</ion-col>
+			        </ion-row>
+			  
+			  </ion-item>
+			  <ion-item *ngIf="from == 'of1' && from == 'of2'">
+			  		<h3>Birth Time Between</h3>
+				    <ion-row>
+			    		<ion-col width-50 class='p-l-0'>
+					  	     From : {{userDetails.fromtime}}
+			       		</ion-col>
+			       		<ion-col width-50>
+					  	     To : {{userDetails.endtime}}
+			       		</ion-col>
+			        </ion-row>
+			  
+			  </ion-item>
+
+		  </ion-list>
+	  </ion-card>
+	  <ion-card full >
+		  <ion-card-header >
+		   Place Of Birth
+		  </ion-card-header>
+
+		  <ion-list>
+			  <ion-item>{{userDetails.birthplace}}</ion-item>
+		  </ion-list>
+		  <ion-list *ngIf="from == 'of3' && from == 'of2'">
+		  	<ion-item>
+		  		<ion-row>
+		    		<ion-col width-30 class='p-l-0'>
+				  	     Lat : {{userDetails.lat}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     Long : {{userDetails.long}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     TZ : {{userDetails.tz}}
+		       		</ion-col>
+		        </ion-row>
+		    </ion-item>
+		  </ion-list>
+		  <ion-list *ngIf="from == 'of3' && from == 'of2'">
+		  	<ion-item>
+		  		<ion-row>
+		    		<ion-col width-30 class='p-l-0'>
+				  	     UTC :  {{userDetails.utc}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     DST :  {{userDetails.dst}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     WT :  {{userDetails.wt}}
+		       		</ion-col>
+		        </ion-row>
+		    </ion-item>
+		  </ion-list>
+	  </ion-card>
+
+	  <ion-card full *ngIf="from == 'of4' && from == 'of5'">
+		  <ion-card-header *ngIf="from == 'of4'">
+		   Male Birth Details
+		  </ion-card-header>
+		  <ion-card-header *ngIf="from == 'of5'">
+		   Owner Birth Details
+		  </ion-card-header>
+
+		  <ion-list>
+			  <ion-item>First Name : {{userDetails.mlastname}}</ion-item>
+			  <ion-item>Surname : {{userDetails.msurname}}</ion-item>
+			  <ion-item >
+				  <ion-row>
+			    		<ion-col width-50 class='p-l-0'>
+					  	     Date of birth : {{userDetails.mdob}}
+			       		</ion-col>
+			       		<ion-col width-50>
+					  	     Gender : Male
+			       		</ion-col>
+			        </ion-row>
+			  
+			  </ion-item> 
+			  <ion-item>
+			  	Birth Time : {{userDetails.mdot}}
+			  </ion-item>
+			   
+
+		  </ion-list>
+	  </ion-card>
+	  <ion-card full *ngIf="from == 'of4' && from == 'of5'">
+		  <ion-card-header *ngIf="from == 'of4'">
+		  Male Place Of Birth
+		  </ion-card-header>
+		  <ion-card-header *ngIf="from == 'of5'">
+		  Ownner Place Of Birth
+		  </ion-card-header>
+
+		  <ion-list>
+			  <ion-item>{{userDetails.mbirthplace}}</ion-item>
+		  </ion-list>
+		  <ion-list>
+		  	<ion-item>
+		  		<ion-row>
+		    		<ion-col width-30 class='p-l-0'>
+				  	     Lat : {{userDetails.mlat}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     Long : {{userDetails.mlong}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     TZ : {{userDetails.mtz}}
+		       		</ion-col>
+		        </ion-row>
+		    </ion-item>
+		  </ion-list>
+		  <ion-list>
+		  	<ion-item>
+		  		<ion-row>
+		    		<ion-col width-30 class='p-l-0'>
+				  	     UTC :  {{userDetails.mutc}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     DST :  {{userDetails.mdst}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     WT :  {{userDetails.mwt}}
+		       		</ion-col>
+		        </ion-row>
+		    </ion-item>
+		  </ion-list>
+	  </ion-card>
+
+	  <ion-card full *ngIf="from == 'of4' && from == 'of5'">
+		  <ion-card-header *ngIf="from == 'of4'">
+		   Female Birth Details
+		  </ion-card-header>
+		  <ion-card-header *ngIf="from == 'of5'">
+		   Owner Spouse Birth Details
+		  </ion-card-header>
+
+		  <ion-list>
+			  <ion-item>First Name : {{userDetails.flastname}}</ion-item>
+			  <ion-item>Surname : {{userDetails.fsurname}}</ion-item>
+			  <ion-item >
+				  <ion-row>
+			    		<ion-col width-50 class='p-l-0'>
+					  	     Date of birth : {{userDetails.fdob}}
+			       		</ion-col>
+			       		<ion-col width-50>
+					  	     Gender : Female
+			       		</ion-col>
+			        </ion-row>
+			  
+			  </ion-item> 
+			  <ion-item>
+			  	Birth Time : {{userDetails.fdot}}
+			  </ion-item>
+			   
+
+		  </ion-list>
+	  </ion-card>
+	  <ion-card full *ngIf="from == 'of4' && from == 'of5'">
+		  <ion-card-header  *ngIf="from == 'of4'">
+		  Female Place Of Birth
+		  </ion-card-header>
+		  <ion-card-header  *ngIf="from == 'of5'">
+		  Owner Spouse Place Of Birth
+		  </ion-card-header>
+
+		  <ion-list>
+			  <ion-item>{{userDetails.fbirthplace}}</ion-item>
+		  </ion-list>
+		  <ion-list>
+		  	<ion-item>
+		  		<ion-row>
+		    		<ion-col width-30 class='p-l-0'>
+				  	     Lat : {{userDetails.flat}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     Long : {{userDetails.flong}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     TZ : {{userDetails.ftz}}
+		       		</ion-col>
+		        </ion-row>
+		    </ion-item>
+		  </ion-list>
+		  <ion-list>
+		  	<ion-item>
+		  		<ion-row>
+		    		<ion-col width-30 class='p-l-0'>
+				  	     UTC :  {{userDetails.futc}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     DST :  {{userDetails.fdst}}
+		       		</ion-col>
+		       		<ion-col width-30 class='p-l-0'>
+				  	     WT :  {{userDetails.fwt}}
+		       		</ion-col>
+		        </ion-row>
+		    </ion-item>
+		  </ion-list>
+	  </ion-card>
+	   
+
+	   
+	  
+  </ion-content>
+
+<ion-footer no-shadow>
+	<ion-toolbar position="bottom">
+		<button ion-button color="orange-cust"  block>Continue</button>
+	</ion-toolbar>
+</ion-footer>

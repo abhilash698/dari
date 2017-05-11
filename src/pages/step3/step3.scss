@@ -1,0 +1,30 @@
+page-step3 {
+	.buttons-components-page {
+      color: #8e8e8e;
+	  ion-card {
+	    margin-bottom: 2em;
+	  }
+
+	  ion-card-content {
+	    background-color: #F4F5F8;
+	    color: #8e8e8e;
+	  }
+
+	  ion-card img {
+	    width: auto;
+	    height: 44px;
+	    display: block;
+	    margin: 20px auto;
+	  }
+
+	  ion-card ion-card-header {
+	  	font-size: 20px;
+	  	border-bottom: 2px solid #8e8e8e !important;
+	  	text-transform: uppercase;
+	  	color: #8e8e8e;
+	  }
+
+	}
+
+	 
+}

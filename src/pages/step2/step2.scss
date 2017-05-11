@@ -1,0 +1,43 @@
+page-step2 {
+	.buttons-components-page {
+
+	  ion-card {
+	    margin-bottom: 2em;
+	  }
+
+	  ion-card-content {
+	    background-color: #F4F5F8;
+	  }
+
+	  ion-card img {
+	    width: auto;
+	    height: 44px;
+	    display: block;
+	    margin: 20px auto;
+	  }
+
+	  .border-bottom {
+	  	border-bottom: 1px solid #76787a;
+	  }
+
+		.input-has-focus .item-inner{
+			border-bottom-color: #fff !important;
+			box-shadow: none !important;
+		}
+		.input-has-focus:last-child{
+			border-bottom-color: #afafaf !important;
+			box-shadow: none !important;
+		}
+
+	}
+
+	.ct-header{
+		border-bottom: 2px solid #ec145a;
+		color: #ec145a;
+		text-transform: uppercase; 
+	}
+	.ct-radio{
+		font-size:8px;
+		float:right;
+	}
+}

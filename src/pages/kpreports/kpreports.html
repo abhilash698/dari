@@ -1,0 +1,14 @@
+<ion-header>
+	<ion-navbar color='custom-bg'>
+    	 
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+	  <button ion-item *ngFor="let item of items" (click)="itemSelected(item)">
+	    {{ item.name }}
+	    <ion-icon name="arrow-forward" style='float: right;' ></ion-icon>
+	  </button>  
+	</ion-list>
+</ion-content>

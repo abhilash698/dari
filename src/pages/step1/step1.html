@@ -9,18 +9,23 @@
   	<ion-list >
 
 	  <ion-item>
-	    <ion-label floating>Username</ion-label>
-	    <ion-input formControlName="username" [(ngModel)]='user.username' type="text"></ion-input>
+	    <ion-label floating>First Name</ion-label>
+	    <ion-input formControlName="firstName" [(ngModel)]='user.UserDetails.FirstName' type="text"></ion-input>
+	  </ion-item>
+
+	  <ion-item>
+	    <ion-label floating>Last Name</ion-label>
+	    <ion-input formControlName="lastName" [(ngModel)]='user.UserDetails.LastName' type="text"></ion-input>
 	  </ion-item>
 
 	  <ion-item>
 	    <ion-label floating>Email</ion-label>
-	    <ion-input formControlName="email" [(ngModel)]='user.email' type="email"></ion-input>
+	    <ion-input formControlName="email" [(ngModel)]='user.Email' type="email"></ion-input>
 	  </ion-item>
 
 	  <ion-item>
 	    <ion-label floating>Mobile</ion-label>
-	    <ion-input formControlName="mobile" [(ngModel)]='user.mobile' type="text"></ion-input>
+	    <ion-input formControlName="mobile" [(ngModel)]='user.PhoneNumber' type="text"></ion-input>
 	  </ion-item>
 	</ion-list>
   	<p *ngIf="submitAttempt" style="color: #ea6153; font-size:12px;">Please fill out all details accurately.</p>

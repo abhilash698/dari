@@ -1,6 +1,11 @@
   <ion-header>
     <ion-navbar color='custom-bg' >
-       
+       <ion-title>{{service.ServiceName}}</ion-title>
+			 <ion-buttons end>
+					<button icon-only ion-button  (click)="presentPopover($event)">
+						<ion-icon name="more"></ion-icon>
+					</button>
+				</ion-buttons>
     </ion-navbar>
   </ion-header>
   <ion-content class="buttons-components-page outer-content">
@@ -9,7 +14,7 @@
 		  <ion-list>
 		    <ion-item>
 		  	  <ion-label fixed>Service Name</ion-label>
-		      <ion-input type="text" formControlName="serviceName" name='serviceName'  [(ngModel)]="serviceName"></ion-input>
+		      <ion-input type="text" formControlName="serviceName" name='serviceName'  [(ngModel)]="service.ServiceName"></ion-input>
 		    </ion-item>
 		    <ion-item class='border-bottom'>
 			   <ion-label>Remarks</ion-label>
@@ -34,52 +39,37 @@
 		  		<ion-row>
 		    		<ion-col width-50>
 				  	    <ion-item class='border-bottom'>
-				      	  	<ion-input formControlName="surname" name='surname'   placeholder="Surname" [(ngModel)]='form1.surname'></ion-input>	    
+				      	  	<ion-input formControlName="FirstName" name='FirstName'   placeholder="FirstName" [(ngModel)]='form1.FirstName'></ion-input>	    
 				        </ion-item>
 		       		</ion-col>
 		       		<ion-col width-50>
 				  	    <ion-item class='border-bottom'>
-				      	  	<ion-input formControlName="lastname" name='lastname'  placeholder="Lastname"  [(ngModel)]='form1.lastname'></ion-input>	    
+				      	  	<ion-input formControlName="LastName" name='LastName'  placeholder="LastName"  [(ngModel)]='form1.LastName'></ion-input>	    
 				        </ion-item>
 		       		</ion-col>
 		        </ion-row>
 		         
 		        <ion-item class='border-bottom'>
 				      <ion-label>Gender</ion-label>
-				      <ion-select name='sex' formControlName="sex"   [(ngModel)]="form1.sex" >
-				        <ion-option value="Male">Male</ion-option>
-				        <ion-option value="Female">Female</ion-option>
+				      <ion-select name='Gender' formControlName="Gender"   [(ngModel)]="form1.Gender" >
+				        <ion-option value="M">Male</ion-option>
+				        <ion-option value="F">Female</ion-option>
 				      </ion-select>
 				</ion-item>
 		        <ion-item class='border-bottom'>
-			      <ion-label>Date of birth</ion-label>
-			      <ion-datetime formControlName="dob"  displayFormat="MMM DD YYYY" name='dob'  [(ngModel)]="form1.dob"></ion-datetime>
-			    </ion-item>
+							<ion-label>Date of birth</ion-label>
+							<ion-datetime formControlName="DateOfBirth"  displayFormat="DD/MMM/YYYY" name='DateOfBirth'  [(ngModel)]="form1.DateOfBirth"></ion-datetime>
+						</ion-item>
 
-			    <ion-row style='margin-top: 5px;'>
-		  		    <ion-col width-30 class='grid-label' style='color:black;'>
-		  				 Birth Time in Between
-		  			</ion-col>
-		  		</ion-row>
-		  		<ion-row>
-		    		<ion-col width-50>
-				  	    <ion-item>
-					      <ion-label>From Time</ion-label>
-					      <ion-datetime formControlName="fromtime"  displayFormat="h:mm A" name='fromtime'  pickerFormat="h mm A" [(ngModel)]="form1.fromtime"></ion-datetime>
-					    </ion-item>
-		       		</ion-col>
-		       		<ion-col width-50>
-				  	    <ion-item>
-					      <ion-label>End Time</ion-label>
-					      <ion-datetime formControlName="endtime"  displayFormat="h:mm A" name='endtime'  pickerFormat="h mm A" [(ngModel)]="form1.endtime"></ion-datetime>
-					    </ion-item>
-		       		</ion-col>
-		        </ion-row>
+			    	<ion-item class='border-bottom'>
+							<ion-label>Time of birth</ion-label>
+							<ion-datetime formControlName="TimeOfBirth"  displayFormat="HH:mm" name='TimeOfBirth'  [(ngModel)]="form1.TimeOfBirth"></ion-datetime>
+						</ion-item>
 
 			    <ion-item>
 				  	<ion-label fixed>Place of Birth </ion-label>
-				    <ion-input formControlName="birthplace"  type="text" name='birthplace'  [(ngModel)]="form1.birthplace"></ion-input>
-				</ion-item>
+				    <ion-input formControlName="PlaceOfBirth"  type="text" name='PlaceOfBirth'  [(ngModel)]="form1.PlaceOfBirth"></ion-input>
+					</ion-item>
 			   
 		  </ion-list>
 	  </ion-card>
@@ -91,18 +81,18 @@
 
 		  <ion-list>
 			  <ion-item>
-			    <ion-label fixed>Name</ion-label>
-			    <ion-input formControlName="username"  name="username" [(ngModel)]='form1.username' type="text"></ion-input>
+			    <ion-label fixed>Contact Name</ion-label>
+			    <ion-input formControlName="ContactName"  name="ContactName" [(ngModel)]='form1.ContactName' type="text"></ion-input>
 			  </ion-item>
 
 			  <ion-item>
 			    <ion-label fixed>Email</ion-label>
-			    <ion-input formControlName="email"  name="email" [(ngModel)]='form1.email' type="email"></ion-input>
+			    <ion-input formControlName="Email"  name="Email" [(ngModel)]='form1.Email' type="email"></ion-input>
 			  </ion-item>
 
 			  <ion-item>
 			    <ion-label fixed>Mobile</ion-label>
-			    <ion-input formControlName="mobile"  name="mobile" [(ngModel)]='form1.mobile' type="text"></ion-input>
+			    <ion-input formControlName="PhoneNumber"  name="PhoneNumber" [(ngModel)]='form1.PhoneNumber' type="text"></ion-input>
 			  </ion-item>
 
 		  </ion-list>
@@ -114,7 +104,7 @@
   	  	</ion-item>
 
 	    <ion-toolbar position="bottom">
-			<button ion-button   color="orange-cust" (click)='checkOut()' block>Continue</button>
+			<button ion-button   color="orange-cust" (click)='checkOut()' block>Add To Cart</button>
 		</ion-toolbar>
 
   </ion-content>

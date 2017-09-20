@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-
+import { NativeStorage } from 'ionic-native';
 import { NavController,NavParams } from 'ionic-angular';
 
 @Component({
@@ -7,12 +7,26 @@ import { NavController,NavParams } from 'ionic-angular';
   templateUrl: 'checkout.html'
 })
 export class Checkout {
-	public userDetails;
-	public from;
+	public CheckOut;
 	constructor(public navCtrl: NavController,params: NavParams) {
-		this.from = params.data.from;
-		this.userDetails = params.data.data;
-		console.dir(params);
+		NativeStorage.getItem('CheckOut')
+			  .then(
+			    data => {
+						this.CheckOut = JSON.parse(data);
+						console.dir(this.CheckOut); 
+			    },
+			    error => {
+						console.log('error occured');
+					}
+			  );
+	}
+
+	deleteCart(item){
+		var index = this.CheckOut.indexOf(item);
+		if(index > -1){
+			this.CheckOut.splice(index,1);
+			NativeStorage.setItem('CheckOut',JSON.stringify(this.CheckOut));
+		}
 	}
 
 }

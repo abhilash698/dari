@@ -14,8 +14,10 @@ export class RgStep1 {
 	constructor(public navCtrl: NavController,params: NavParams,public formBuilder: FormBuilder) {
 		console.dir(params.get('user'));
 		this.user  = params.get('user');
+		this.user.role = 'user';
 		this.firstForm = formBuilder.group({
-	        username: ['',[Validators.maxLength(30),Validators.required] ],
+	        firstName: ['',[Validators.maxLength(30),Validators.required] ],
+	        lastName: ['',[Validators.maxLength(30),Validators.required] ],
 	        email: ['', Validators.required ],
 	        mobile: ['', [Validators.required,Validators.maxLength(10),Validators.minLength(10), Validators.pattern('^(0|[1-9][0-9]*)$')] ]
 	    });
@@ -36,12 +38,15 @@ export class RgStep1 {
 		this.user.userType.two = true;
 		this.user.userType.three = true;
 		if(id == 1){
+			this.user.role = 'user';
 			this.user.userType.one = false;
 		}
 		else if(id ==  2){
+			this.user.role = 'student';
 			this.user.userType.two = false;
 		}
 		else if(id  == 3){
+			this.user.role = 'astrologer';
 			this.user.userType.three = false;
 		}
 		

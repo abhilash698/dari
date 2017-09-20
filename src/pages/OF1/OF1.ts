@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { App ,NavController ,NavParams } from 'ionic-angular';
+import { App ,NavController ,NavParams,PopoverController } from 'ionic-angular';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NativeStorage } from 'ionic-native';
 import { Checkout } from '../checkout/checkout';
-
+import { PopOverPage } from '../popover/popover';
 
 declare var cordova: any;
 @Component({
@@ -12,19 +12,30 @@ declare var cordova: any;
 })
 export class OF1 {
 	public form1 = {};
-	public serviceName;
+	public service;
+	public checkout;
 
 	checkoutForm: FormGroup;
   	public submitAttempt = false;
 
-	constructor(public navCtrl: NavController,params: NavParams ,public formBuilder: FormBuilder,private app: App ) {
-
-		 this.serviceName = params.data.name;
+	constructor(public navCtrl: NavController,params: NavParams ,public formBuilder: FormBuilder,private app: App,public popoverCtrl: PopoverController ) {
+		console.dir(params);
+		if(params.data.name){
+			this.service = {
+				ServiceName : params.data.name,
+				sellingprice : params.data.sellingprice,
+				specialprice : params.data.specialprice
+			}
+		}
+		else{
+			this.service = params.data.ServiceDetails
+		}
+		  
 
 		 NativeStorage.getItem('user')
 			  .then(
 			    data => {
-			    	this.form1 = data;
+			    	this.form1 = data; 
 			    },
 			    error => console.error(error)
 			  );
@@ -33,17 +44,16 @@ export class OF1 {
 
 		this.checkoutForm = formBuilder.group({
 	        serviceName: ['',[Validators.maxLength(100),Validators.required] ],
-	        surname: ['',[Validators.maxLength(30),Validators.required] ],
-	        lastname: ['',[Validators.maxLength(30),Validators.required] ],
+	        FirstName: ['',[Validators.maxLength(30),Validators.required] ],
+	        LastName: ['',[Validators.maxLength(30),Validators.required] ],
 	        remarks: ['',[Validators.maxLength(300)] ],
-	        sex: ['', Validators.required ],
-	        dob: ['', Validators.required ],
-	        fromtime: ['', Validators.required ],
-	        endtime: ['', Validators.required ],
-	        birthplace: ['',Validators.required],
-	        mobile: ['',Validators.required],
-	        username: ['',[Validators.maxLength(30),Validators.required] ],
-	        email: ['',Validators.required],
+	        Gender: ['', Validators.required ],
+	        DateOfBirth: ['', Validators.required ],
+	        TimeOfBirth: ['', Validators.required ],
+	        PlaceOfBirth: ['',Validators.required],
+	        PhoneNumber: ['',[Validators.required,Validators.maxLength(10),Validators.minLength(10), Validators.pattern('^(0|[1-9][0-9]*)$')]],
+	        ContactName: ['',[Validators.maxLength(30),Validators.required] ],
+	        Email: ['',Validators.required],
 
 	    });
 	}
@@ -52,12 +62,36 @@ export class OF1 {
 	checkOut(){
 		  if(this.checkoutForm.valid){
 		  	let nav = this.app.getRootNav();
-			nav.push(Checkout,{from: 'of1', data: this.form1});
+			NativeStorage.getItem('CheckOut')
+			  .then(
+			    data => {
+					console.dir('data');
+					 var dataArr = JSON.parse(data);
+					 dataArr.push({From: 'of1', Data: this.form1 , service : this.service});
+					 console.dir(dataArr);
+					 NativeStorage.setItem('CheckOut',JSON.stringify(dataArr));
+					 nav.push(Checkout);
+			    },
+			    error => {
+					 var dataArr = [];
+					 dataArr.push({From: 'of1', Data: this.form1 , service : this.service});
+					 NativeStorage.setItem('CheckOut',JSON.stringify(dataArr));
+					 nav.push(Checkout);
+				}
+			  );
+		 
 	      	this.submitAttempt = false;
 		  }
 		  else{
 		  	this.submitAttempt = true;
 		  }
 	}
+
+	presentPopover(ev) {
+      let popover = this.popoverCtrl.create(PopOverPage);
+      popover.present({
+        ev: ev
+      });
+    }
  
 }

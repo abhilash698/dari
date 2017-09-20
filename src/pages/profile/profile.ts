@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Camera, File, Transfer, FilePath,NativeStorage } from 'ionic-native';
 import { ModalAutocompleteItems } from '../modal-autocomplete-items/modal-autocomplete-items';
 import { UserPage } from '../user/user';
+import {Http, Headers, URLSearchParams,RequestOptions } from "@angular/http";
 
 declare var google:any;
 declare var cordova: any;
@@ -15,30 +16,18 @@ declare var cordova: any;
 })
 export class Profile {
 	public user = {
-		username: 'abhialsh',
-		dob: '29 05 1991',
-		dot: '11:12 AM',
-		birthplace: 'warangal',
-		lat: '78.2323',
-		long: '12.2131',
-		utc: '',
-		tz: '',
-		dst: '',
-		wt: '',
-		address: 'flat2=3097, libngmapally',
-		city: 'hyderabad',
-		state: 'teleangana',
-		country: 'India',
-		zip: '50007',
-		mobile: '7799637741',
-		saddress: 'flat2=3097, libngmapally',
-		scity: 'hyderabad',
-		sstate: 'teleangana',
-		scountry: 'India',
-		szip: '50007',
-		smobile: '7799637741',
-		shipAddr: true
-
+		FirstName : '',
+		LastName :'',
+		DateOfBirth: '',
+		TimeOfBirth: '',
+		PlaceOfBirth: '',
+		Latitude: '',
+		Longitude: '',
+		UTC: '',
+		TimeZone: '',
+		DayLightSavings: '',
+		BillingAddress : {},
+		ShippingAddress : {}	
 	};
 	secondForm: FormGroup;
 	lastImage: string = null;
@@ -53,74 +42,62 @@ export class Profile {
     placedetails: any;
     timezoneDetails: any;
 
-	constructor(public navCtrl: NavController,params: NavParams, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController ,public formBuilder: FormBuilder,public modalCtrl: ModalController, public locationService: LocationService ) {
-
-		NativeStorage.getItem('user')
-			  .then(
-			    data => {
-			    	this.user = data;
-			    },
-			    error => console.error(error)
-			  );
+	constructor(public navCtrl: NavController,params: NavParams, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController ,public formBuilder: FormBuilder,public modalCtrl: ModalController, public locationService: LocationService,public http: Http ) {
+		this.http = http;
 		this.secondForm = formBuilder.group({
-	        username: ['',[Validators.maxLength(30),Validators.required] ],
+					firstName: ['',[Validators.maxLength(30),Validators.required] ],
+	        lastName: ['',[Validators.maxLength(30),Validators.required] ],
 	        dob: ['', Validators.required ],
 	        dot: ['', Validators.required ],
-	        birthplace: [''],
-	        lat: [''],
-	        long: [''],
-	        gmt: [''],
-	        tz: [''],
-	        dst: [''],
-	        wt: [''],
-	        address: ['', Validators.required ],
-	        city: ['', Validators.required ],
-	        zip: ['', [Validators.maxLength(6),Validators.maxLength(6),Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$')] ],
-	        state: ['', Validators.required ],
-	        country: ['', Validators.required ],
-	        mobile: ['', [Validators.maxLength(10),Validators.maxLength(10),Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$')] ],
-	        saddress: ['', Validators.required ],
-	        scity: ['', Validators.required ],
-	        szip: ['', [Validators.maxLength(6),Validators.maxLength(6),Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$')] ],
-	        sstate: ['', Validators.required ],
-	        scountry: ['', Validators.required ],
-	        smobile: ['', [Validators.maxLength(10),Validators.maxLength(10),Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$')] ],
-	        shipAddr: ['']
+	        birthplace: ['',Validators.required],
+	        lat: ['',Validators.required],
+	        long: ['',Validators.required],
+	        gmt: ['',Validators.required],
+	        tz: ['',Validators.required],
+	        dst: ['',Validators.required], 
+					Bhousenumber: ['',Validators.required],
+					Bstreet : ['',Validators.required],
+					Bcity: ['',Validators.required],
+					Bstate: ['',Validators.required],
+					Bcountry: ['',Validators.required],
+					Bpincode: ['',Validators.required],
+					Shousenumber: ['',Validators.required],
+					Sstreet : ['',Validators.required],
+					Scity: ['',Validators.required],
+					Sstate: ['',Validators.required],
+					Scountry: ['',Validators.required],
+					Spincode: ['',Validators.required]
 	    });
 
 	}
-
-	
-
-	public toggleAddress(){
-		 
-		if(this.user.shipAddr){
-			this.user.saddress = this.user.address;
-			this.user.scity = this.user.city;
-			this.user.sstate = this.user.state;
-			this.user.scountry = this.user.country;
-			this.user.szip = this.user.zip;
-			this.user.smobile = this.user.mobile;
-		}
-		else {
-			this.user.saddress = '';
-			this.user.scity = '';
-			this.user.sstate = '';
-			this.user.scountry = '';
-			this.user.szip = '';
-			this.user.smobile = '';
-		}
+  
+	ngOnInit() {
+			NativeStorage.getItem('user')
+			.then(
+				data => {
+					console.dir(data);
+					this.user = data;
+				},
+				error => console.error(error)
+			);
 	}
-
-	public NextStep(){
+	 
+	public UpdateProfile(){
 		  if(this.secondForm.valid){
-		  	NativeStorage.setItem('user',this.user)
-	        .then(() => {
-		        this.navCtrl.push(UserPage);
-	        }, function (error) {
-	          console.log(error);
-	        });
-	        
+				 NativeStorage.getItem('token')
+					.then(
+						data => {
+							let headers = new Headers();
+							headers.append('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+							headers.append('Authorization', 'Bearer ' + data.access_token);
+							var options = new RequestOptions({headers: headers});
+					
+							this.http.post("http://dariservices.azurewebsites.net/api/Account/UpdateProfile",this.user,options).map(res => res.json()).subscribe(response => {
+								console.dir(response); 
+							});
+						},
+						error => console.error(error)
+					);
 		  }
 		  else{
 		  	 console.log('Not Valid Form');
@@ -215,11 +192,7 @@ export class Profile {
 	    return cordova.file.dataDirectory + img;
 	  }
 	}
-
-	ngOnInit() {
-        this.initPlacedetails();
-
-    }
+ 
 
     showModal() {
         // reset 
@@ -227,10 +200,7 @@ export class Profile {
         // show modal|
         let modal = this.modalCtrl.create(ModalAutocompleteItems);
         modal.onDidDismiss(data => {
-            console.log('page > modal dismissed > data > ', data);
             if(data){
-                this.user.birthplace = data.description;
-                // get details
                 this.getPlaceDetail(data.place_id);
             }                
         })
@@ -238,9 +208,12 @@ export class Profile {
     }
 
     private reset() {
-        this.initPlacedetails();
-        this.user.birthplace = '';
-        this.address.set = false;
+        this.user.PlaceOfBirth = '';
+        this.user.Latitude = '';
+				this.user.Longitude = '';
+				this.user.UTC = '';
+				this.user.TimeZone = '';
+				this.user.DayLightSavings = '';
     }
 
     private getPlaceDetail(place_id:string):void {
@@ -252,31 +225,25 @@ export class Profile {
         this.placesService.getDetails(request, callback);
         function callback(place, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
-                console.log('page > getPlaceDetail > place > ', place);
-                // set full address
-                self.user.birthplace = place.formatted_address;
-                self.user.lat = place.geometry.location.lat();
-                self.user.long = place.geometry.location.lng();
-                self.user.utc = self.getUTC(place.utc_offset); 
+                
+                self.user.PlaceOfBirth = place.formatted_address;
+                self.user.Latitude = place.geometry.location.lat();
+                self.user.Longitude = place.geometry.location.lng();
+                self.user.UTC = self.getUTC(place.utc_offset); 
 
-                var url = "https://maps.googleapis.com/maps/api/timezone/json?location="+self.user.lat+","+self.user.long+"&timestamp="+(Math.round((new Date().getTime()) / 1000)).toString() + "&sensor=false&key=AIzaSyBwxsqCA99NcALYYloU0NN0DnYC0y35SpM";
+                var url = "https://maps.googleapis.com/maps/api/timezone/json?location="+self.user.Latitude+","+self.user.Longitude+"&timestamp="+(Math.round((new Date().getTime()) / 1000)).toString() + "&sensor=false&key=AIzaSyBwxsqCA99NcALYYloU0NN0DnYC0y35SpM";
 
                 self.locationService.load(url)
-				  .then(data => {
-				    self.placedetails = data;  
-				    self.user.tz = self.placedetails.timeZoneId;
-				    self.user.dst = self.placedetails.dstOffset;
-				    self.user.wt = self.placedetails.dstOffset;
-				  });
-
-				
-                
-                // populate
-                self.address.set = true;
-                console.log('page > getPlaceDetail > details > ', self.placedetails);
-            }else{
-                console.log('page > getPlaceDetail > status > ', status);
-            }
+								.then(loc => {
+									if(loc){
+										self.user.TimeZone = loc['timeZoneId'];
+										self.user.DayLightSavings = loc['dstOffset'];
+									}
+									 
+								});
+						}else{
+									console.log('page > getPlaceDetail > status > ', status);
+							}
         }
     }
 
@@ -287,19 +254,7 @@ export class Profile {
     	
     	return 'UTC + '+int+":"+(dec*60);
 
-    }
- 
-    private initPlacedetails() {
-    	this.timezoneDetails = {};
-        this.placedetails = {
-            address: '',
-            lat: '',
-            lng: '',
-            UTC: '',
-            timezone: '',
-            DST: ''
-        };        
-    }  
+    } 
 
 	
 }

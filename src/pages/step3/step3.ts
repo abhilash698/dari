@@ -1,7 +1,7 @@
 import { Component } from '@angular/core'; 
-import { App ,NavController ,NavParams, ActionSheetController, ToastController, Platform, LoadingController, Loading} from 'ionic-angular';
-import { Camera, File, Transfer, FilePath, NativeStorage } from 'ionic-native';
-import { UserPage } from '../user/user';
+import { App ,NavController ,NavParams, ToastController} from 'ionic-angular';
+import { RegistrationSuccess } from '../registrationSuccess/registrationSuccess';
+import {Http, Headers, URLSearchParams } from "@angular/http";
 
 declare var cordova: any;
 
@@ -11,85 +11,13 @@ declare var cordova: any;
 })
 export class RgStep3 {
 	public user;
-	lastImage: string = null;
-  	loading: Loading;
 
-	constructor(public navCtrl: NavController,params: NavParams, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController,private app: App) {
+	constructor(public navCtrl: NavController,params: NavParams, public toastCtrl: ToastController,private app: App, public http : Http) {
+		this.http = http;
 		this.user  = params.get('user');
+		console.dir(this.user);
 	}
-
-
-	public presentActionSheet() {
-	    let actionSheet = this.actionSheetCtrl.create({
-	      title: 'Select Image Source',
-	      buttons: [
-	        {
-	          text: 'Load from Library',
-	          handler: () => {
-	            this.takePicture(Camera.PictureSourceType.PHOTOLIBRARY);
-	          }
-	        },
-	        {
-	          text: 'Use Camera',
-	          handler: () => {
-	            this.takePicture(Camera.PictureSourceType.CAMERA);
-	          }
-	        },
-	        {
-	          text: 'Cancel',
-	          role: 'cancel'
-	        }
-	      ]
-	    });
-	    actionSheet.present();
-	}
-
-	public takePicture(sourceType) {
-	  // Create options for the Camera Dialog
-	  var options = {
-	    quality: 100,
-	    sourceType: sourceType,
-	    saveToPhotoAlbum: false,
-	    correctOrientation: true
-	  };
-	 
-	  // Get the data of an image
-	  Camera.getPicture(options).then((imagePath) => {
-	    // Special handling for Android library
-	    if (this.platform.is('android') && sourceType === Camera.PictureSourceType.PHOTOLIBRARY) {
-	      FilePath.resolveNativePath(imagePath)
-	      .then(filePath => {
-	        var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-	        var correctPath = filePath.substr(0, imagePath.lastIndexOf('/') + 1);
-	        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-	      });
-	    } else {
-	      var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-	      var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-	      this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-	    }
-	  }, (err) => {
-	    this.presentToast('Error while selecting image.');
-	  });
-	}
-
-
-	private createFileName() {
-	  var d = new Date(),
-	  n = d.getTime(),
-	  newFileName =  n + ".jpg";
-	  return newFileName;
-	}
-	 
-	// Copy the image to a local folder
-	private copyFileToLocalDir(namePath, currentName, newFileName) {
-	  File.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-	    this.lastImage = newFileName;
-	  }, error => {
-	    this.presentToast('Error while storing file.');
-	  });
-	}
-	 
+  
 	private presentToast(text) {
 	  let toast = this.toastCtrl.create({
 	    message: text,
@@ -99,26 +27,36 @@ export class RgStep3 {
 	  toast.present();
 	}
 	 
-	// Always get the accurate path to your apps folder
-	public pathForImage(img) {
-	  if (img === null) {
-	    return 'assets/img/img-icon.png';
-	  } else {
-	    return cordova.file.dataDirectory + img;
-	  }
-	}
-
 	doRegistration(){
 		if(this.user){
-	
-	      	NativeStorage.setItem('user',this.user)
-	        .then(() => {
-		        let nav = this.app.getRootNav();
-				nav.push(UserPage);
-	          //this.navCtrl.setRoot(UserPage);
-	        }, function (error) {
-	          console.log(error);
-	        });
+			let headers = new Headers({ 'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8' });
+		    
+		    let urlSearchParams = new URLSearchParams();
+		    urlSearchParams.append('Email', this.user.Email);
+		    urlSearchParams.append('PhoneNumber', this.user.PhoneNumber);
+		    urlSearchParams.append('Role', this.user.role);
+		    urlSearchParams.append('UserDetails.FirstName', this.user.UserDetails.FirstName);
+		    urlSearchParams.append('UserDetails.LastName', this.user.UserDetails.LastName);
+		    urlSearchParams.append('UserDetails.DateOfBirth', this.user.UserDetails.DateOfBirth);
+		    urlSearchParams.append('UserDetails.TimeOfBirth', this.user.UserDetails.TimeOfBirth);
+		    urlSearchParams.append('UserDetails.PlaceOfBirth', this.user.UserDetails.PlaceOfBirth);
+		    urlSearchParams.append('UserDetails.Latitude', this.user.UserDetails.Latitude);
+		    urlSearchParams.append('UserDetails.Longitude', this.user.UserDetails.Longitude);
+		    urlSearchParams.append('UserDetails.DayLightSavings', this.user.UserDetails.DayLightSavings);
+		    urlSearchParams.append('UserDetails.TimeZone', this.user.UserDetails.TimeZone);
+		    urlSearchParams.append('UserDetails.UTC', this.user.UserDetails.UTC);
+		    urlSearchParams.append('UserDetails.Gender', this.user.UserDetails.Gender);
+		    let body = urlSearchParams.toString()
+
+	      	this.http.post('http://dariservices.azurewebsites.net/api/Account/Register',body,{headers : headers} )
+	      		.map(res => res.json())
+			    	.subscribe(data => {
+								this.navCtrl.push(RegistrationSuccess);
+							}, error => {
+								this.presentToast(JSON.parse(error._body).Message);
+						});
+	      	
+	      	
 		}
 		 
 	}

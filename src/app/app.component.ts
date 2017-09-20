@@ -3,10 +3,11 @@ import { Platform } from 'ionic-angular';
 import { StatusBar, Splashscreen ,NativeStorage} from 'ionic-native';
 
 import { HomePage } from '../pages/home/home';
-//import { UserPage } from '../pages/user/user';
+import { UserPage } from '../pages/user/user';
 //import { Services } from '../pages/services/services';
 //import { Checkout } from '../pages/checkout/checkout';
 //import { Profile } from '../pages/profile/profile';
+//import { RegistrationSuccess } from '../pages/registrationSuccess/registrationSuccess';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class MyApp {
       .then( (data) => {
         // user is previously logged and we have his data
         // we will let him access the app
-        this.rootPage = HomePage;
+        this.rootPage = UserPage;
         Splashscreen.hide();
       }, (error) => {
         //we don't have the user data so we will ask him to log in

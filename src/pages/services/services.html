@@ -7,7 +7,7 @@
 	<ion-navbar color='custom-bg'>
     	<ion-title>KP Horoscope Prediction Report Service</ion-title>
     	<ion-buttons end>
-	      <button icon-only ion-button >
+	      <button icon-only ion-button  (click)="presentPopover($event)">
 	        <ion-icon name="more"></ion-icon>
 	      </button>
 	    </ion-buttons>
@@ -15,6 +15,5 @@
 </ion-header>
 
 <ion-tabs [scrollable-tabs]="selectedTabIndex" color="{{tabsColor}}" mode='{{tabsMode}}' tabsHighlight="true" tabsPlacement="{{tabsPlacement}}">
-	<ion-tab *ngFor=" let tab of tabs" [root]="tab.root" [tabTitle]="tab.title" class='full-width-tab' [rootParams]="{id : tab.id}" ></ion-tab>
-	 
+	<ion-tab *ngFor=" let tab of tabs" [root]="tab.root" [tabTitle]="tab.title" class='full-width-tab' [rootParams]="{sublist : tab.sublist , ServiceDetails : tab.ServiceDetails}" ></ion-tab>
 </ion-tabs>

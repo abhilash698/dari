@@ -20,19 +20,24 @@
   	  <p *ngIf="submitAttempt" style="color: #ea6153;">Please fill out all details accurately.</p>
 	  <ion-card full>
 		  <ion-list>
-		    <ion-item class='border-bottom'>
-		      <ion-input formControlName="username" placeholder="Name" [(ngModel)]='user.username'></ion-input>
-		    </ion-item>
+		    <ion-item>
+					<ion-label floating>First Name</ion-label>
+					<ion-input formControlName="firstName" name='firstName' [(ngModel)]='user.FirstName' type="text"></ion-input>
+				</ion-item>
+
+				<ion-item>
+					<ion-label floating>Last Name</ion-label>
+					<ion-input formControlName="lastName" name='lastName' [(ngModel)]='user.LastName' type="text"></ion-input>
+				</ion-item>
 		     
 		    <ion-item class='border-bottom'>
 		      <ion-label>Date of birth</ion-label>
-		      <ion-datetime formControlName="dob" displayFormat="MMM DD YYYY" [(ngModel)]="user.dob"></ion-datetime>
+		      <ion-datetime formControlName="dob" name='dob' displayFormat="MMM DD YYYY" [(ngModel)]="user.DateOfBirth"></ion-datetime>
 		    </ion-item>
-
 
 		    <ion-item>
 		      <ion-label>Time of birth</ion-label>
-		      <ion-datetime formControlName="dot" displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="user.tob"></ion-datetime>
+		      <ion-datetime formControlName="dot" name='dot' displayFormat="h:mm A" pickerFormat="h mm A" [(ngModel)]="user.TimeOfBirth"></ion-datetime>
 		    </ion-item>
 		  </ion-list>
 	  </ion-card>
@@ -44,44 +49,40 @@
 		  
 		  <ion-list>
 		  	<ion-item>
-	            <ion-input type="text" formControlName="birthplace" placeholder="Pick an address"
-	                (click)="showModal()" 
-	                [(ngModel)]="user.birthplace">
+	            <ion-input type="text" name='birthplace'  formControlName="birthplace" placeholder="Pick an address"
+	                (click)="showModal()" (focus)="showModal()" 
+	                [(ngModel)]="user.PlaceOfBirth">
 	            </ion-input>
 	        </ion-item>
 
 			  <ion-item class='border-bottom'>
 			    <ion-label fixed>Lat :</ion-label>
-			    <ion-input formControlName="lat" type="text" value="" [(ngModel)]="user.lat"></ion-input>
+			    <ion-input formControlName="lat" name='lat' type="text" value="" [(ngModel)]="user.Latitude"></ion-input>
 			  </ion-item>
 
 			  <ion-item class='border-bottom'>
 			    <ion-label fixed>Long :</ion-label>
-			    <ion-input formControlName="long" type="text" [(ngModel)]="user.long"></ion-input>
+			    <ion-input formControlName="long" name='long'  type="text" [(ngModel)]="user.Longitude"></ion-input>
 			  </ion-item>
 
 			  <ion-item class='border-bottom'>
 			    <ion-label fixed>UTC :</ion-label>
-			    <ion-input formControlName="gmt" type="text" [(ngModel)]="user.utc"></ion-input>
+			    <ion-input formControlName="gmt" name='gmt'  type="text" [(ngModel)]="user.UTC"></ion-input>
 			  </ion-item>
 
 			  <ion-item class='border-bottom'>
 			    <ion-label fixed>TZ :</ion-label>
-			    <ion-input formControlName="tz" type="text" [(ngModel)]="user.tz"></ion-input>
+			    <ion-input formControlName="tz" name='tz'  type="text" [(ngModel)]="user.TimeZone"></ion-input>
 			  </ion-item>
 
 			  <ion-item class='border-bottom'>
 			    <ion-label fixed>DST :</ion-label>
-			    <ion-input formControlName="dst" type="text" [(ngModel)]="user.dst"></ion-input>
-			  </ion-item>
-
-			  <ion-item>
-			    <ion-label fixed>WT :</ion-label>
-			    <ion-input formControlName="wt" type="text"[(ngModel)]="user.wt"></ion-input>
+			    <ion-input formControlName="dst" name='dst'  type="text" [(ngModel)]="user.DayLightSavings"></ion-input>
 			  </ion-item>
 
 		  </ion-list>
 	  </ion-card>
+ 
 
 	  <ion-card full>
 		  <ion-card-header class='ct-header'>
@@ -91,22 +92,17 @@
 		  <ion-list>
 			  <ion-item class='border-bottom'>
 			  	<ion-label>Address</ion-label>
-			    <ion-textarea formControlName="address" rows="2" [(ngModel)]="user.address"></ion-textarea>
+			    <ion-textarea formControlName="Bhousenumber" rows="2" [(ngModel)]="user.BillingAddress.HouseNumber"></ion-textarea>
 			  </ion-item>
 
-			  <ion-item>
-			  	<ion-label fixed>Phone </ion-label>
-			    <ion-input formControlName="mobile" type="text" [(ngModel)]="user.mobile"></ion-input>
-			  </ion-item>
-
-			  <ion-item class='border-bottom'>
-			    <ion-label fixed>ZIP </ion-label>
-			    <ion-input formControlName="zip" type="text" [(ngModel)]="user.zip"></ion-input>
+				<ion-item class='border-bottom'>
+			    <ion-label fixed>Street </ion-label>
+			    <ion-input formControlName="Bstreet" type="text" [(ngModel)]="user.BillingAddress.Street"></ion-input>
 			  </ion-item>
 
 			  <ion-item class='border-bottom'>
 			      <ion-label>City</ion-label>
-			      <ion-select formControlName="city" [(ngModel)]="user.city" >
+			      <ion-select formControlName="Bcity" [(ngModel)]="user.BillingAddress.City" >
 			        <ion-option value="Hyderabad">Hyderabad</ion-option>
 			        <ion-option value="Bangalore">Bangalore</ion-option>
 			        <ion-option value="Chennai">Chennai</ion-option>
@@ -115,7 +111,7 @@
 
 			  <ion-item class='border-bottom'>
 			      <ion-label>State</ion-label>
-			      <ion-select formControlName="state" [(ngModel)]="user.state" >
+			      <ion-select formControlName="Bstate" [(ngModel)]="user.BillingAddress.State" >
 			        <ion-option value="Telangana">Telangana</ion-option>
 			        <ion-option value="Andhra Pradesh">Andhra Pradesh</ion-option>
 			        <ion-option value="Australia">Australia</ion-option>
@@ -124,42 +120,40 @@
 
 			  <ion-item class='border-bottom'>
 			      <ion-label>Country</ion-label>
-			      <ion-select formControlName="country" [(ngModel)]="user.country" >
+			      <ion-select formControlName="Bcountry" [(ngModel)]="user.BillingAddress.Country" >
 			        <ion-option value="India">India</ion-option>
 			        <ion-option value="USA">USA</ion-option>
 			        <ion-option value="Australia">Australia</ion-option>
 			      </ion-select>
 			  </ion-item>
-			  
+
+				<ion-item class='border-bottom'>
+			    <ion-label fixed>Pincode </ion-label>
+			    <ion-input formControlName="Bpincode" type="text" [(ngModel)]="user.BillingAddress.Pincode"></ion-input>
+			  </ion-item>
 
 		  </ion-list>
 	  </ion-card>
 
-	  <ion-card full>
+		<ion-card full>
 		  <ion-card-header class='ct-header'>
-		    Shipping Address <span class='ct-radio'>same as above  <ion-checkbox formControlName="shipAddr" checked="false" (click)='toggleAddress()' [(ngModel)]="user.shipAddr"></ion-checkbox></span>
+		    Shipping Address
 		  </ion-card-header>
 
 		  <ion-list>
 			  <ion-item class='border-bottom'>
 			  	<ion-label>Address</ion-label>
-			    <ion-textarea formControlName="saddress" rows="2" [(ngModel)]="user.saddress"></ion-textarea>
+			    <ion-textarea formControlName="Shousenumber" rows="2" [(ngModel)]="user.ShippingAddress.HouseNumber"></ion-textarea>
 			  </ion-item>
 
-
-			  <ion-item>
-			  	<ion-label fixed>Phone </ion-label>
-			    <ion-input formControlName="smobile" type="text" [(ngModel)]="user.smobile"></ion-input>
-			  </ion-item>
-
-			  <ion-item class='border-bottom'>
-			    <ion-label fixed>ZIP </ion-label>
-			    <ion-input formControlName="szip" type="text" [(ngModel)]="user.szip"></ion-input>
+				<ion-item class='border-bottom'>
+			    <ion-label fixed>Street </ion-label>
+			    <ion-input formControlName="Sstreet" type="text" [(ngModel)]="user.ShippingAddress.Street"></ion-input>
 			  </ion-item>
 
 			  <ion-item class='border-bottom'>
 			      <ion-label>City</ion-label>
-			      <ion-select formControlName="scity" [(ngModel)]="user.scity" >
+			      <ion-select formControlName="Scity" [(ngModel)]="user.ShippingAddress.City" >
 			        <ion-option value="Hyderabad">Hyderabad</ion-option>
 			        <ion-option value="Bangalore">Bangalore</ion-option>
 			        <ion-option value="Chennai">Chennai</ion-option>
@@ -168,7 +162,7 @@
 
 			  <ion-item class='border-bottom'>
 			      <ion-label>State</ion-label>
-			      <ion-select formControlName="sstate" [(ngModel)]="user.sstate" >
+			      <ion-select formControlName="Sstate" [(ngModel)]="user.ShippingAddress.State" >
 			        <ion-option value="Telangana">Telangana</ion-option>
 			        <ion-option value="Andhra Pradesh">Andhra Pradesh</ion-option>
 			        <ion-option value="Australia">Australia</ion-option>
@@ -177,23 +171,25 @@
 
 			  <ion-item class='border-bottom'>
 			      <ion-label>Country</ion-label>
-			      <ion-select formControlName="scountry" [(ngModel)]="user.scountry" >
+			      <ion-select formControlName="Scountry" [(ngModel)]="user.ShippingAddress.Country" >
 			        <ion-option value="India">India</ion-option>
 			        <ion-option value="USA">USA</ion-option>
 			        <ion-option value="Australia">Australia</ion-option>
 			      </ion-select>
 			  </ion-item>
 
-
-			  
-			  
+				<ion-item class='border-bottom'>
+			    <ion-label fixed>Pincode </ion-label>
+			    <ion-input formControlName="Spincode" type="text" [(ngModel)]="user.ShippingAddress.Pincode"></ion-input>
+			  </ion-item>
 
 		  </ion-list>
 	  </ion-card>
+
 	  <div id="map"></div>
     </form>
 	    <ion-toolbar position="bottom">
-			<button ion-button (click)='NextStep()' color="orange-cust" block>Update</button>
+			<button ion-button (click)='UpdateProfile()' color="orange-cust" block>Update</button>
 		</ion-toolbar>
 
   </ion-content>

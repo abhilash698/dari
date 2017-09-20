@@ -1,43 +1,82 @@
 {
-  "name": "ionic-hello-world",
-  "author": "Ionic Framework",
-  "homepage": "http://ionicframework.com/",
-  "private": true,
-  "scripts": {
-    "clean": "ionic-app-scripts clean",
-    "build": "ionic-app-scripts build",
-    "ionic:build": "ionic-app-scripts build",
-    "ionic:serve": "ionic-app-scripts serve"
-  },
-  "dependencies": {
-    "@angular/common": "2.2.1",
-    "@angular/compiler": "2.2.1",
-    "@angular/compiler-cli": "2.2.1",
-    "@angular/core": "2.2.1",
-    "@angular/forms": "2.2.1",
-    "@angular/http": "2.2.1",
-    "@angular/platform-browser": "2.2.1",
-    "@angular/platform-browser-dynamic": "2.2.1",
-    "@angular/platform-server": "2.2.1",
-    "@ionic/storage": "1.1.7",
-    "ionic-angular": "2.0.0-rc.4",
-    "ionic-native": "2.2.11",
-    "ionicons": "3.0.0",
-    "rxjs": "5.0.0-beta.12",
-    "zone.js": "0.6.26"
-  },
-  "devDependencies": {
-    "@ionic/app-scripts": "0.0.47",
-    "typescript": "2.0.9"
-  },
-  "cordovaPlugins": [
-    "cordova-plugin-whitelist",
-    "cordova-plugin-console",
-    "cordova-plugin-statusbar",
-    "cordova-plugin-device",
-    "cordova-plugin-splashscreen",
-    "ionic-plugin-keyboard"
-  ],
-  "cordovaPlatforms": [],
-  "description": "dari: An Ionic project"
+    "name": "ionic-hello-world",
+    "author": "Ionic Framework",
+    "homepage": "http://ionicframework.com/",
+    "private": true,
+    "scripts": {
+        "clean": "ionic-app-scripts clean",
+        "build": "ionic-app-scripts build",
+        "ionic:build": "ionic-app-scripts build",
+        "ionic:serve": "ionic-app-scripts serve"
+    },
+    "dependencies": {
+        "@angular/common": "2.2.1",
+        "@angular/compiler": "2.2.1",
+        "@angular/compiler-cli": "2.2.1",
+        "@angular/core": "2.2.1",
+        "@angular/forms": "2.2.1",
+        "@angular/http": "2.2.1",
+        "@angular/platform-browser": "2.2.1",
+        "@angular/platform-browser-dynamic": "2.2.1",
+        "@angular/platform-server": "2.2.1",
+        "@ionic-native/camera": "^3.12.1",
+        "@ionic-native/core": "^3.6.1",
+        "@ionic/storage": "1.1.7",
+        "cordova-browser": "^4.1.0",
+        "cordova-plugin-camera": "~2.3.1",
+        "cordova-plugin-console": "1.0.5",
+        "cordova-plugin-device": "1.1.4",
+        "cordova-plugin-facebook4": "^1.9.1",
+        "cordova-plugin-nativestorage": "~2.2.0",
+        "cordova-plugin-splashscreen": "~4.0.1",
+        "cordova-plugin-statusbar": "2.2.1",
+        "cordova-plugin-whitelist": "1.3.1",
+        "ionic-angular": "2.0.0-rc.4",
+        "ionic-native": "2.2.11",
+        "ionic-plugin-keyboard": "~2.2.1",
+        "ionicons": "3.0.0",
+        "rxjs": "5.0.0-beta.12",
+        "zone.js": "0.6.26",
+        "cordova-plugin-file": "~4.3.1",
+        "cordova-plugin-file-transfer": "~1.6.1",
+        "cordova-plugin-filepath": "~1.0.2"
+    },
+    "devDependencies": {
+        "@ionic/app-scripts": "0.0.47",
+        "@ionic/cli-plugin-cordova": "1.4.1",
+        "@ionic/cli-plugin-ionic-angular": "1.3.2",
+        "typescript": "2.0.9"
+    },
+    "cordovaPlugins": [
+        "cordova-plugin-whitelist",
+        "cordova-plugin-console",
+        "cordova-plugin-statusbar",
+        "cordova-plugin-device",
+        "cordova-plugin-splashscreen",
+        "ionic-plugin-keyboard"
+    ],
+    "cordovaPlatforms": [],
+    "description": "dari: An Ionic project",
+    "cordova": {
+        "plugins": {
+            "cordova-plugin-console": {},
+            "cordova-plugin-device": {},
+            "cordova-plugin-nativestorage": {},
+            "cordova-plugin-splashscreen": {},
+            "cordova-plugin-statusbar": {},
+            "cordova-plugin-whitelist": {},
+            "ionic-plugin-keyboard": {},
+            "cordova-plugin-camera": {},
+            "cordova-plugin-facebook4": {
+                "APP_ID": "603484359856560",
+                "APP_NAME": "Dari"
+            },
+            "cordova-plugin-file": {},
+            "cordova-plugin-file-transfer": {},
+            "cordova-plugin-filepath": {}
+        },
+        "platforms": [
+            "browser"
+        ]
+    }
 }

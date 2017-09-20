@@ -10,8 +10,7 @@ import { RgStep3 } from '../step3/step3';
   templateUrl: 'registration.html'
 })
 export class RegistrationPage {
-
-  public user = {user : {username: '', email : '' , mobile: '',userType: { one : false , two : true , three: true}} };
+  public user = {user : { UserDetails : { FirstName : '' , LastName : ''} , userType : { one : false , two : true , three: true} } };
 
   @ViewChild('RegistrationPage') tabRef: Tabs;
   step1root: any;

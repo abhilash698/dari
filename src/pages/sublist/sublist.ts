@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 
-import { NavController,NavParams } from 'ionic-angular';
+import { NavController,NavParams,PopoverController } from 'ionic-angular';
 import { OF1 } from '../OF1/OF1';
 import { OF2 } from '../OF2/OF2';
 import { OF3 } from '../OF3/OF3';
 import { OF4 } from '../OF4/OF4';
 import { OF5 } from '../OF5/OF5';
+import { PopOverPage } from '../popover/popover';
 
 @Component({
   selector: 'page-sublist',
@@ -14,31 +15,39 @@ import { OF5 } from '../OF5/OF5';
 export class Sublist {
   
   public items;
+  public title;
 
-  constructor(public navCtrl: NavController,params : NavParams) {
+  constructor(public navCtrl: NavController,params : NavParams,public popoverCtrl: PopoverController) {
       this.items =  params.data.sublist;
+      this.title = params.data.name;
   }
 
   itemSelected(item) {
-    console.log("Selected Item", item);
     if(item.redirect == 'form'){
-      if(item.form == 'OF1'){
+      if(item.form == 'Order Form 1'){
         this.navCtrl.push(OF1,item);
       }
-      else if(item.form == 'OF2'){
-        this.navCtrl.push(OF2,item);
+      else if(item.form == 'Order Form 2'){
+        this.navCtrl.push(OF1,item);
       }
-      else if(item.form == 'OF3'){
-        this.navCtrl.push(OF3,item);
+      else if(item.form == 'Order Form 3'){
+        this.navCtrl.push(OF1,item);
       }
-      else if(item.form == 'OF4'){
-        this.navCtrl.push(OF4,item);
+      else if(item.form == 'Order Form 4'){
+        this.navCtrl.push(OF1,item);
       }
-      else if(item.form == 'OF5'){
-        this.navCtrl.push(OF5,item);
+      else if(item.form == 'Order Form 5'){
+        this.navCtrl.push(OF1,item);
       }
 
     }    
   }
+
+  presentPopover(ev) {
+     let popover = this.popoverCtrl.create(PopOverPage);
+     popover.present({
+       ev: ev
+     });
+   }
 
 }

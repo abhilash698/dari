@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
+import { HttpModule } from '@angular/http';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { RegistrationPage } from '../pages/registration/registration';
@@ -20,6 +21,10 @@ import { Checkout } from '../pages/checkout/checkout';
 import { ModalAutocompleteItems } from  '../pages/modal-autocomplete-items/modal-autocomplete-items';
 import { PopOverPage } from '../pages/popover/popover';
 import { Profile } from '../pages/profile/profile';
+import { ForgotPassword } from '../pages/forgot-password/forgot-password';
+import { DataService } from '../providers/data-service';
+import { RegistrationSuccess } from '../pages/registrationSuccess/registrationSuccess';
+import { Camera } from '@ionic-native/camera';
 
 
 @NgModule({
@@ -39,7 +44,9 @@ import { Profile } from '../pages/profile/profile';
     Checkout,
     ModalAutocompleteItems,
     PopOverPage,
-    Profile
+    Profile,
+    RegistrationSuccess,
+    ForgotPassword
   ],
   imports: [
     IonicModule.forRoot(MyApp)
@@ -60,8 +67,10 @@ import { Profile } from '../pages/profile/profile';
     Checkout,
     ModalAutocompleteItems,
     PopOverPage,
-    Profile
+    Profile,
+    RegistrationSuccess,
+    ForgotPassword
   ],
-  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler}]
+  providers: [{provide: ErrorHandler, useClass: IonicErrorHandler},Camera]
 })
 export class AppModule {}

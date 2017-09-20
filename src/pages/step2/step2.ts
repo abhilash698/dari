@@ -1,8 +1,7 @@
 import { Component, OnInit  } from '@angular/core';
-import { NavController, ModalController , Tabs,NavParams, ActionSheetController, ToastController, Platform, LoadingController, Loading} from 'ionic-angular';
+import { NavController, ModalController , Tabs,NavParams} from 'ionic-angular';
 import {LocationService} from '../../providers/location-service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Camera, File, Transfer, FilePath } from 'ionic-native';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'; 
 import { ModalAutocompleteItems } from '../modal-autocomplete-items/modal-autocomplete-items';
 
 declare var google:any;
@@ -15,9 +14,7 @@ declare var cordova: any;
 export class RgStep2 {
 	public user;
 	secondForm: FormGroup;
-	lastImage: string = null;
-  	loading: Loading;
-  	public submitAttempt = false;
+	public submitAttempt = false;
 
   	address:any = {
         place: '',
@@ -27,11 +24,10 @@ export class RgStep2 {
     placedetails: any;
     timezoneDetails: any;
 
-	constructor(public navCtrl: NavController,params: NavParams, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController ,public formBuilder: FormBuilder,public modalCtrl: ModalController, public locationService: LocationService ) {
+	constructor(public navCtrl: NavController,params: NavParams,public formBuilder: FormBuilder,public modalCtrl: ModalController, public locationService: LocationService ) {
 
 		this.user  = params.get('user');
 		this.secondForm = formBuilder.group({
-	        username: ['',[Validators.maxLength(30),Validators.required] ],
 	        dob: ['', Validators.required ],
 	        dot: ['', Validators.required ],
 	        birthplace: [''],
@@ -40,46 +36,12 @@ export class RgStep2 {
 	        gmt: [''],
 	        tz: [''],
 	        dst: [''],
-	        wt: [''],
-	        address: ['', Validators.required ],
-	        city: ['', Validators.required ],
-	        zip: ['', [Validators.maxLength(6),Validators.maxLength(6),Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$')] ],
-	        state: ['', Validators.required ],
-	        country: ['', Validators.required ],
-	        mobile: ['', [Validators.maxLength(10),Validators.maxLength(10),Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$')] ],
-	        saddress: ['', Validators.required ],
-	        scity: ['', Validators.required ],
-	        szip: ['', [Validators.maxLength(6),Validators.maxLength(6),Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$')] ],
-	        sstate: ['', Validators.required ],
-	        scountry: ['', Validators.required ],
-	        smobile: ['', [Validators.maxLength(10),Validators.maxLength(10),Validators.required, Validators.pattern('^(0|[1-9][0-9]*)$')] ],
-	        shipAddr: ['']
+	        gender: ['', Validators.required ]
 	    });
 
 	}
 
 	
-
-	public toggleAddress(){
-		 
-		if(this.user.shipAddr){
-			this.user.saddress = this.user.address;
-			this.user.scity = this.user.city;
-			this.user.sstate = this.user.state;
-			this.user.scountry = this.user.country;
-			this.user.szip = this.user.zip;
-			this.user.smobile = this.user.mobile;
-		}
-		else {
-			this.user.saddress = '';
-			this.user.scity = '';
-			this.user.sstate = '';
-			this.user.scountry = '';
-			this.user.szip = '';
-			this.user.smobile = '';
-		}
-	}
-
 	public NextStep(){
 		  if(this.secondForm.valid){
 	      	this.navCtrl.parent.select(2);
@@ -91,85 +53,7 @@ export class RgStep2 {
 		  }
 	}
 
-	public presentActionSheet() {
-	    let actionSheet = this.actionSheetCtrl.create({
-	      title: 'Select Image Source',
-	      buttons: [
-	        {
-	          text: 'Load from Library',
-	          handler: () => {
-	            this.takePicture(Camera.PictureSourceType.PHOTOLIBRARY);
-	          }
-	        },
-	        {
-	          text: 'Use Camera',
-	          handler: () => {
-	            this.takePicture(Camera.PictureSourceType.CAMERA);
-	          }
-	        },
-	        {
-	          text: 'Cancel',
-	          role: 'cancel'
-	        }
-	      ]
-	    });
-	    actionSheet.present();
-	}
-
-	public takePicture(sourceType) {
-	  // Create options for the Camera Dialog
-	  var options = {
-	    quality: 100,
-	    sourceType: sourceType,
-	    saveToPhotoAlbum: false,
-	    correctOrientation: true
-	  };
-	 
-	  // Get the data of an image
-	  Camera.getPicture(options).then((imagePath) => {
-	    // Special handling for Android library
-	    if (this.platform.is('android') && sourceType === Camera.PictureSourceType.PHOTOLIBRARY) {
-	      FilePath.resolveNativePath(imagePath)
-	      .then(filePath => {
-	        var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-	        var correctPath = filePath.substr(0, imagePath.lastIndexOf('/') + 1);
-	        this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-	      });
-	    } else {
-	      var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-	      var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-	      this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-	    }
-	  }, (err) => {
-	    this.presentToast('Error while selecting image.');
-	  });
-	}
-
-
-	private createFileName() {
-	  var d = new Date(),
-	  n = d.getTime(),
-	  newFileName =  n + ".jpg";
-	  return newFileName;
-	}
-	 
-	// Copy the image to a local folder
-	private copyFileToLocalDir(namePath, currentName, newFileName) {
-	  File.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-	    this.lastImage = newFileName;
-	  }, error => {
-	    this.presentToast('Error while storing file.');
-	  });
-	}
-	 
-	private presentToast(text) {
-	  let toast = this.toastCtrl.create({
-	    message: text,
-	    duration: 3000,
-	    position: 'top'
-	  });
-	  toast.present();
-	}
+   
 	 
 	// Always get the accurate path to your apps folder
 	public pathForImage(img) {
@@ -180,9 +64,8 @@ export class RgStep2 {
 	  }
 	}
 
-	ngOnInit() {
-        this.initPlacedetails();
-
+	  ngOnInit() {
+       
     }
 
     showModal() {
@@ -191,10 +74,7 @@ export class RgStep2 {
         // show modal|
         let modal = this.modalCtrl.create(ModalAutocompleteItems);
         modal.onDidDismiss(data => {
-            console.log('page > modal dismissed > data > ', data);
             if(data){
-                this.user.birthplace = data.description;
-                // get details
                 this.getPlaceDetail(data.place_id);
             }                
         })
@@ -202,9 +82,12 @@ export class RgStep2 {
     }
 
     private reset() {
-        this.initPlacedetails();
-        this.user.birthplace = '';
-        this.address.set = false;
+        this.user.UserDetails.birthplace = '';
+        this.user.UserDetails.Latitude = '';
+				this.user.UserDetails.Longitude = '';
+				this.user.UserDetails.UTC = '';
+				this.user.UserDetails.TimeZone = '';
+				this.user.UserDetails.DayLightSavings = '';
     }
 
     private getPlaceDetail(place_id:string):void {
@@ -216,31 +99,25 @@ export class RgStep2 {
         this.placesService.getDetails(request, callback);
         function callback(place, status) {
             if (status == google.maps.places.PlacesServiceStatus.OK) {
-                console.log('page > getPlaceDetail > place > ', place);
-                // set full address
-                self.user.birthplace = place.formatted_address;
-                self.user.lat = place.geometry.location.lat();
-                self.user.long = place.geometry.location.lng();
-                self.user.utc = self.getUTC(place.utc_offset); 
+                
+                self.user.UserDetails.PlaceOfBirth = place.formatted_address;
+                self.user.UserDetails.Latitude = place.geometry.location.lat();
+                self.user.UserDetails.Longitude = place.geometry.location.lng();
+                self.user.UserDetails.UTC = self.getUTC(place.utc_offset); 
 
-                var url = "https://maps.googleapis.com/maps/api/timezone/json?location="+self.user.lat+","+self.user.long+"&timestamp="+(Math.round((new Date().getTime()) / 1000)).toString() + "&sensor=false&key=AIzaSyBwxsqCA99NcALYYloU0NN0DnYC0y35SpM";
+                var url = "https://maps.googleapis.com/maps/api/timezone/json?location="+self.user.UserDetails.Latitude+","+self.user.UserDetails.Longitude+"&timestamp="+(Math.round((new Date().getTime()) / 1000)).toString() + "&sensor=false&key=AIzaSyBwxsqCA99NcALYYloU0NN0DnYC0y35SpM";
 
                 self.locationService.load(url)
-				  .then(data => {
-				    self.placedetails = data;  
-				    self.user.tz = self.placedetails.timeZoneId;
-				    self.user.dst = self.placedetails.dstOffset;
-				    self.user.wt = self.placedetails.dstOffset;
-				  });
-
-				
-                
-                // populate
-                self.address.set = true;
-                console.log('page > getPlaceDetail > details > ', self.placedetails);
-            }else{
-                console.log('page > getPlaceDetail > status > ', status);
-            }
+								.then(loc => {
+									if(loc){
+										self.user.UserDetails.TimeZone = loc['timeZoneId'];
+										self.user.UserDetails.DayLightSavings = loc['dstOffset'];
+									}
+									 
+								});
+						}else{
+									console.log('page > getPlaceDetail > status > ', status);
+							}
         }
     }
 
@@ -252,18 +129,5 @@ export class RgStep2 {
     	return 'UTC + '+int+":"+(dec*60);
 
     }
- 
-    private initPlacedetails() {
-    	this.timezoneDetails = {};
-        this.placedetails = {
-            address: '',
-            lat: '',
-            lng: '',
-            UTC: '',
-            timezone: '',
-            DST: ''
-        };        
-    }  
-
 	
 }

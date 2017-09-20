@@ -4,7 +4,7 @@
 	</div>
 	<div class='text-align'>
 		<p class='txt'>Signin via Email or Facebook</p>
-		<img src="assets/img/email.png" class="img-sm" alt="">
+		<img (click) ="doGoogleLogin()" src="assets/img/email.png" class="img-sm" alt="">
 		<img (click) ="doFbLogin()" src="assets/img/facebook-o.png" class="img-sm" alt="">
 		<form [formGroup]="loginForm">
 		<ion-list padding>
@@ -13,12 +13,12 @@
 	            <ion-icon name="contacts" class='grey' item-left></ion-icon>
 			</ion-item>
 			<ion-item class='custom-input no-top-border'>
-				<ion-input formControlName="password" type="text" placeholder="Password" [(ngModel)]='loginCred.password'></ion-input>
+				<ion-input formControlName="password" type="password" placeholder="Password" [(ngModel)]='loginCred.password'></ion-input>
 	            <ion-icon name="key" class='grey' item-left></ion-icon>
 			</ion-item>
 			<ion-grid>
   				<ion-row>
-					<ion-col width-50><span class='float-left links'>Forgot Password?</span></ion-col>
+					<ion-col width-50><span class='float-left links' (click)="GotoForgot()">Forgot Password?</span></ion-col>
 					<ion-col width-50><span class='float-right links' (click) ="GotoRegistration()">Need an Account?</span></ion-col>
 				</ion-row>
 			</ion-grid>

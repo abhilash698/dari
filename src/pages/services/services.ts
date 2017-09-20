@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-
-import { ToastController } from 'ionic-angular';
-
+import { ToastController,NavParams,PopoverController } from 'ionic-angular';
 import { Kpreports } from '../kpreports/kpreports';
+import { PopOverPage } from '../popover/popover';
+import {Http, Headers, RequestOptions } from "@angular/http";
+import { OF1 } from '../OF1/OF1';
  
 @Component({
   templateUrl: 'services.html',
@@ -22,17 +23,32 @@ export class Services {
 
  
 
-  constructor(private toastCtrl: ToastController) {
-    this.tabs = [
-      { id: '1' , title: "ReportService", root: Kpreports },
-      { id: '2' , title: "MuhurtaService", root: Kpreports },
-      { id: '3' , title: "MatchMaking", root: Kpreports },
-      { id: '4' , title: "LuckyGems", root: Kpreports },
-      { id: '5' , title: "LuckyRudraksha", root: Kpreports },
-      { id: '6' , title: "LuckyNumbers", root: Kpreports },
-      { id: '7' , title: "NammaNakshatras", root: Kpreports }
-    ];
+  constructor(private toastCtrl: ToastController,public popoverCtrl: PopoverController, public http: Http,params: NavParams) {
+      this.tabs = params.data.tabs;
+      this.tabs.forEach(element => {
+        if(element.sublist.length){
+          element.root = Kpreports;
+          element.ServiceDetails = {};
+        }
+        else{
+          element.root = OF1;
+          element.ServiceDetails = { ServiceName : element.title , sellingprice : element.sellingprice , specialprice : element.specialprice}; 
+        }
+        
+      });
+      console.dir(this.tabs);
   }
+
+  ngOnInit(){
+     
+  }
+
+  presentPopover(ev) {
+     let popover = this.popoverCtrl.create(PopOverPage);
+     popover.present({
+       ev: ev
+     });
+   }
 
   selectTab(index: number) {
     this.selectedTabIndex = index;

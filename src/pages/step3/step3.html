@@ -4,34 +4,32 @@
     </ion-navbar>
   </ion-header>
   <ion-content class="buttons-components-page outer-content">
-  	  <ion-card (click)="presentActionSheet()">
-	    <ion-card-content>
-	      <img src="{{ pathForImage(lastImage)}}" />
-	    </ion-card-content>
+  	   
+	  <ion-card>
+	  	  	<ion-item>
+	    		<ion-list>{{user.Email}}</ion-list>
+	    	</ion-item>	
 	    	<ion-item>
-	    		<ion-list item-left>{{user.username}}</ion-list>
-	    		<ion-list item-right><ion-icon item-right name="create"></ion-icon></ion-list>
-	    	</ion-item>	     
-	    	 
+	    		<ion-list>{{user.PhoneNumber}}</ion-list>
+	    	</ion-item>	  
 	  </ion-card>
 	  <ion-card>
 	  	<ion-grid>
 		  <ion-row>
 		    <ion-col width-50>
 		    	<ion-list no-lines>
-				   <ion-item>{{user.dob}}</ion-item>
-				   <ion-item>{{user.tob}}</ion-item>
-				   <ion-item>{{user.city}}, {{user.country}}</ion-item>
+				   <ion-item>{{user.UserDetails.DateOfBirth}}</ion-item>
+				   <ion-item>{{user.UserDetails.TimeOfBirth}}</ion-item>
+				   <ion-item>{{user.UserDetails.PlaceOfBirth}}</ion-item>
 				</ion-list>
 		    </ion-col>
 		    <ion-col width-50>
 		    	<ion-list no-lines>
-				   <ion-item>Lat  : {{user.lat}}</ion-item>
-				   <ion-item>Long : {{user.long}}</ion-item>
-				   <ion-item>GMT  : {{user.gmt}}</ion-item>
-				   <ion-item>TZ   : {{user.tz}}</ion-item>
-				   <ion-item>DST  : {{user.dst}}</ion-item>
-				   <ion-item>WT   : {{user.wt}}</ion-item>
+				   <ion-item>Lat  : {{user.UserDetails.Latitude}}</ion-item>
+				   <ion-item>Long : {{user.UserDetails.Longitude}}</ion-item>
+				   <ion-item>UTC  : {{user.UserDetails.UTC}}</ion-item>
+				   <ion-item>TZ   : {{user.UserDetails.TimeZone}}</ion-item>
+				   <ion-item>DST  : {{user.UserDetails.DayLightSavings}}</ion-item>
 				</ion-list>
 		    </ion-col>
 		  </ion-row>
@@ -39,35 +37,7 @@
 
 	  </ion-card>
 
-	  <ion-card full>
-		  <ion-card-header >
-		    Billing Address
-		  </ion-card-header>
-
-		  <ion-list>
-			  <ion-item>{{user.username}}</ion-item>
-			  <ion-item>{{user.address}}</ion-item>
-			  <ion-item>{{user.city}} - {{user.zip}}</ion-item>
-			  <ion-item>{{user.state}}</ion-item>
-			  <ion-item>{{user.country}}</ion-item>
-			  <ion-item>{{user.mobile}}</ion-item>
-		  </ion-list>
-	  </ion-card>
-
-	  <ion-card full>
-		  <ion-card-header >
-		    Shipping Address
-		  </ion-card-header>
-
-		  <ion-list>
-			  <ion-item>{{user.username}}</ion-item>
-			  <ion-item>{{user.saddress}}</ion-item>
-			  <ion-item>{{user.scity}} - {{user.szip}}</ion-item>
-			  <ion-item>{{user.sstate}}</ion-item>
-			  <ion-item>{{user.scountry}}</ion-item>
-			  <ion-item>{{user.smobile}}</ion-item>
-		  </ion-list>
-	  </ion-card>
+	   
 	  <ion-grid>
 	  	<ion-row>
 	  		<ion-col width-50>

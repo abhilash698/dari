@@ -1,7 +1,14 @@
 page-services {
+	.tab-button{
+		white-space: nowrap;
+  		overflow: hidden;
+	}
 	.tab-button-text{
 		font-size: 16px !important;
 		line-height:55px;
+		white-space: nowrap !important;
+		width: 130px;
+  		overflow: hidden !important;
 	}
 
 	.tabs-md .tab-button[aria-selected=true] {
